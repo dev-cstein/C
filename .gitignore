@@ -1,0 +1,12 @@
+# generelle C-Artefakte
+*.o
+*.out
+*.exe
+
+# Vim-Swap-Files, Backups
+*~
+*.swp
+
+# Build-Ordner in allen Subprojekten
+**/build/
+
