@@ -1,5 +1,3 @@
-# Windows-Alternate-Data-Streams
-*:Zone.Identifier
 
 # C-Artefakte
 *.o
@@ -13,4 +11,9 @@
 
 # beliebige Build-Ordner
 **/build/
+
+# Windows-Alternate-Data-Streams
+*:Zone.Identifier
+
 EOF
+
