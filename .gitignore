@@ -1,0 +1,13 @@
+# C-Artefakte
+*.o
+*.out
+*.exe
+
+# Vim Swap-/Backup-Dateien
+*.swp
+*.swo
+*~
+
+# beliebige Build-Ordner
+**/build/
+EOF
