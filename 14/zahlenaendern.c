@@ -1,39 +1,50 @@
 //Pointer - Übung Zahlenändern
 
 #include <stdio.h>
-#include <string.h>
 
-float get_numbers(float*, float*);
-float double_numbers(float*, float*);
-float switch_and_output(float*, float*);
+void get_numbers(int *zahl1, int *zahl2);
+void double_numbers(int *zahl1, int *zahl2);
+void switch_and_output(int *zahl1, int *zahl2);
 
 int main(void)
 {
-	float *zahl_1 = -1.0;
-	float *zahl_2 = -1.0;
-
+	int zahl1;
+	int zahl2;
 	
+	get_numbers(&zahl1, &zahl2);
+	printf("Zahl1 = %i\nZahl2 = %i\n", zahl1, zahl2);
+	
+	double_numbers(&zahl1, &zahl2);
+	printf("Zahl1 * 2 = %i\nZahl2 * 2 = %i\n", zahl1, zahl2);
+	
+	switch_and_output(&zahl1, &zahl2);
+	
+
 	return 0;
 }
 
-float get_numbers(float *zahl_1, float *zahl_2)
+void get_numbers(int *zahl1, int *zahl2)
 {
-	do
-	{
-		printf("Bitte erste Zahl eingeben:\n");
-		scanf("%f", &zahl_1);
-		printf("Bitte zweite Zahl eingeben:\n");
-		scanf("%f", &zahl_2);
-		
-	}while(*zahl_1 == -1 || *zahl_2 == -1); 
+	 printf("Bitte gib die erste Zahl ein:");
+	 scanf("%i", zahl1);
+	 printf("Biite gib die zweite Zahl ein:");
+	 scanf("%i", zahl2);
 }
 
-float double_numbers()
+void double_numbers(int *zahl1, int *zahl2)
 {
-
+	*zahl1 = *zahl1 * 2;
+	*zahl2 = *zahl2 * 2;
 }
 
-float switch_and_output()
+void switch_and_output(int *zahl1, int *zahl2)
 {
+	int temp;
 
+	temp = *zahl1;
+	*zahl1 = *zahl2;
+	*zahl2 = temp;
+
+	printf("Zahl1 = %i\nZahl2 = %i\n", *zahl1, *zahl2);
 }
+
