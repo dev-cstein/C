@@ -1,70 +1,75 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include "split.h"
 
-void dateiVerarbeiten(void);
+void verarbeiten(FILE *input);
+void ausgabekorper(char *datum, char *preis, FILE *output);
 
 int main(void)
 {
+	FILE *input;
 	
-	dateiVerarbeiten();
+	verarbeiten(input);
 
 	return 0;
 }
 
-void dateiVerarbeiten(void)
-{	
-	FILE *input;
-	char *eof;
-	char temp[255];
-	char knr[255];
-	
-	int aktuelleKundennummer; 
-	int letzteKundennummer;
-	int position;
-	float einzelbetrag;
-	float gesamtumsatz;
+void verarbeiten(FILE *input)
+{
+	FILE *output;
 
-	char datum[255];
-	char betrag[255];
-	
+	char *eof;
+	char temp[100];
+	char knr[25], datum[20], preis[20];
+	char dateiformat[5] = ".txt";
+
+	int laenge = 0;
+	int kundennummer;
+	int kunde;
+
+	float einzelpreis;
+	float gesamtumsatz = 0;
+
 	input = fopen("bestellungen.csv", "r");
-	
 	if(input == NULL)
-	{
-		printf("Fehler! Datei konnte nicht geöffnet werden.");
+	{	
+		printf("Datei konnte nicht geöffnet werden.\n");
 	}
 	else
 	{
-		eof = fgets(temp, 255, input);
-		
-		
+		eof = fgets(temp, 100, input);
 
 		while(eof != NULL)
 		{
-			position = split(temp, knr, ';');
-			aktuelleKundennummmer = atoi(knr);
-			letzteKundennummer = aktuelleKundennummer;
+			laenge = split(temp, knr, ';');
+			kunde = atoi(knr);
+			kundennummer = kunde;
 			gesamtumsatz = 0;
 
+			strcat(knr, dateiformat);
+			output = fopen(knr, "w");
 
-			while(eof != NULL && aktuelleKundennummer == letzteKundennummer)
+			ausgabekopf(kunde, output);
+
+			while(eof != NULL && kundennummer == kunde)
 			{
-				position += split(temp + position, datum, ';');
-				position += split(temp + position, betrag, ';');
+				laenge += split(temp + laenge, datum, ';');
+				laenge += split(temp + laenge, preis, ';');
+				einzelpreis = atof(preis);
+				gesamtumsatz += einzelpreis;
 				
-				einzelbetrag = atof(betrag);
-				gesamtumsatz += einzelbetrag;
-				
-				printf("",);
-				
-				eof = fgets(temp, 255, input); 
+				ausgabekoerper(datum, preis, output);
+
+				eof = fgets(temp, 100, input);
+				laenge = split(temp, knr, ';');
+				kunde = atoi(knr);
+
 			}
-
-
+			ausgabefuss(gesamtumsatz, output);
+			fclose(output);
 		}
 		fclose(input);
 	}
-}
 
+}
